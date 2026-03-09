@@ -62,9 +62,21 @@ export default function Settings() {
   };
 
   const handleDeleteAccount = () => {
-    // In production, this would call a backend endpoint to delete the account
-    alert("Account deletion would be processed here. Contact support to delete your account.");
+    // Apple requires a way to delete accounts in-app
+    window.open("mailto:support@realartistprotection.com?subject=Delete%20My%20Account&body=Please%20delete%20my%20account%20associated%20with%20email:%20" + encodeURIComponent(user?.email || ""), "_blank");
     setShowDeleteDialog(false);
+  };
+
+  const handleItemAction = (item) => {
+    if (item.appleUrl) {
+      window.open(item.appleUrl, "_blank");
+    } else if (item.action === "restore") {
+      alert("Restore Purchases: If you have an active subscription, it will be restored. This is managed by Apple.");
+    } else if (item.action === "terms") {
+      window.open("https://realartistprotection.com/terms", "_blank");
+    } else if (item.action === "privacy") {
+      window.open("https://realartistprotection.com/privacy", "_blank");
+    }
   };
 
   return (
