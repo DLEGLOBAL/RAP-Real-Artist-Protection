@@ -220,15 +220,15 @@ export default function Wallet() {
             <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center mb-3">
               <Building className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <p className="font-semibold text-slate-900 dark:text-white">Withdraw</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">To bank account</p>
+            <p className="font-semibold text-slate-900 dark:text-white">Export Report</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Download earnings</p>
           </button>
           <button className="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-100 dark:border-slate-700 hover:border-slate-200 dark:hover:border-slate-600 transition-colors text-left select-none">
             <div className="w-10 h-10 bg-violet-100 dark:bg-violet-900/30 rounded-xl flex items-center justify-center mb-3">
               <DollarSign className="w-5 h-5 text-violet-600 dark:text-violet-400" />
             </div>
-            <p className="font-semibold text-slate-900 dark:text-white">Add Funds</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Deposit money</p>
+            <p className="font-semibold text-slate-900 dark:text-white">Log Royalty</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Record earnings</p>
           </button>
         </div>
 
