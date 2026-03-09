@@ -33,18 +33,18 @@ const settingsSections = [
     ],
   },
   {
-    title: "Payments",
+    title: "Subscription",
     items: [
-      { icon: CreditCard, label: "Payment Methods" },
-      { icon: FileText, label: "Billing History" },
+      { icon: CreditCard, label: "Manage Subscription", appleUrl: "itms-apps://apps.apple.com/account/subscriptions", description: "Managed by Apple" },
+      { icon: FileText, label: "Restore Purchases", action: "restore" },
     ],
   },
   {
-    title: "Support",
+    title: "Legal",
     items: [
       { icon: HelpCircle, label: "Help Center" },
-      { icon: FileText, label: "Terms of Service" },
-      { icon: Lock, label: "Privacy Policy" },
+      { icon: FileText, label: "Terms of Service", action: "terms" },
+      { icon: Lock, label: "Privacy Policy", action: "privacy" },
     ],
   },
 ];
