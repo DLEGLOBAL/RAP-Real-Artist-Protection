@@ -135,6 +135,7 @@ export default function Settings() {
                 {section.items.map((item, index) => (
                   <div
                     key={index}
+                    onClick={() => !item.page && handleItemAction(item)}
                     className={cn(
                       "flex items-center justify-between p-4 select-none",
                       !item.toggle && "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors",
