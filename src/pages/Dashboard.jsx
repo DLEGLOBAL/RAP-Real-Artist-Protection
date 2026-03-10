@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  FileText, Users, Wallet, TrendingUp,
+  FileText, TrendingUp,
   Shield, Bell, ChevronRight, Sparkles, RefreshCw
 } from "lucide-react";
 import { Link } from "react-router-dom";
