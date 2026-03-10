@@ -3,8 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   FileText, Users, Wallet, TrendingUp,
-  Shield, Bell, ChevronRight, Sparkles, RefreshCw } from
-"lucide-react";
+  Shield, Bell, ChevronRight, Sparkles, RefreshCw
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import StatCard from "../components/ui/StatCard";
