@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { 
-  FileText, Users, Wallet, TrendingUp, 
-  Shield, Bell, ChevronRight, Sparkles, RefreshCw 
-} from "lucide-react";
+import {
+  FileText, Users, Wallet, TrendingUp,
+  Shield, Bell, ChevronRight, Sparkles, RefreshCw } from
+"lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import StatCard from "../components/ui/StatCard";
@@ -25,46 +25,46 @@ export default function Dashboard() {
 
   const { data: user } = useQuery({
     queryKey: ["currentUser"],
-    queryFn: () => base44.auth.me(),
+    queryFn: () => base44.auth.me()
   });
 
   const { data: contracts = [], isLoading: contractsLoading } = useQuery({
     queryKey: ["contracts", user?.email],
     queryFn: () => base44.entities.Contract.filter({ created_by: user.email }, "-created_date", 10),
-    enabled: !!user?.email,
+    enabled: !!user?.email
   });
 
   const { data: alerts = [], isLoading: alertsLoading } = useQuery({
     queryKey: ["alerts", user?.email],
     queryFn: () => base44.entities.Alert.filter({ created_by: user.email, read: false }, "-created_date", 5),
-    enabled: !!user?.email,
+    enabled: !!user?.email
   });
 
   const { data: trustProfile } = useQuery({
     queryKey: ["trustProfile", user?.email],
     queryFn: () => base44.entities.TrustProfile.filter({ user_email: user?.email }),
-    enabled: !!user?.email,
+    enabled: !!user?.email
   });
 
   const { data: transactions = [] } = useQuery({
     queryKey: ["transactions", user?.email],
     queryFn: () => base44.entities.Transaction.filter({ created_by: user.email, status: "completed" }, "-created_date", 50),
-    enabled: !!user?.email,
+    enabled: !!user?.email
   });
 
   const profile = trustProfile?.[0];
-  const totalEarnings = transactions
-    .filter(t => t.type === "income")
-    .reduce((sum, t) => sum + (t.amount || 0), 0);
+  const totalEarnings = transactions.
+  filter((t) => t.type === "income").
+  reduce((sum, t) => sum + (t.amount || 0), 0);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["contracts"] }),
-      queryClient.invalidateQueries({ queryKey: ["alerts"] }),
-      queryClient.invalidateQueries({ queryKey: ["transactions"] }),
-      queryClient.invalidateQueries({ queryKey: ["trustProfile"] })
-    ]);
+    queryClient.invalidateQueries({ queryKey: ["contracts"] }),
+    queryClient.invalidateQueries({ queryKey: ["alerts"] }),
+    queryClient.invalidateQueries({ queryKey: ["transactions"] }),
+    queryClient.invalidateQueries({ queryKey: ["trustProfile"] })]
+    );
     setTimeout(() => setIsRefreshing(false), 500);
   };
 
@@ -117,27 +117,27 @@ export default function Dashboard() {
   return (
     <div ref={scrollableRef} className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:bg-black">
       {/* Pull to Refresh Indicator */}
-      {isPulling && (
-        <div 
-          className="fixed top-0 left-0 right-0 flex items-center justify-center z-50 transition-all"
-          style={{ 
-            height: `${pullDistance}px`,
-            opacity: pullDistance / 80
-          }}
-        >
+      {isPulling &&
+      <div
+        className="fixed top-0 left-0 right-0 flex items-center justify-center z-50 transition-all"
+        style={{
+          height: `${pullDistance}px`,
+          opacity: pullDistance / 80
+        }}>
+
           <div className="bg-violet-600 text-white rounded-full p-2">
             <RefreshCw className={cn(
-              "w-5 h-5",
-              pullDistance > 80 && "animate-spin"
-            )} />
+            "w-5 h-5",
+            pullDistance > 80 && "animate-spin"
+          )} />
           </div>
         </div>
-      )}
+      }
       <div className="max-w-lg mx-auto px-4 pt-safe py-6 pb-24" style={{ transform: `translateY(${isPulling ? pullDistance * 0.5 : 0}px)` }}>
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-gray-900 text-2xl font-bold dark:text-white">
               Hey, {user?.full_name?.split(" ")[0] || "Artist"} 👋
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">
@@ -151,20 +151,20 @@ export default function Dashboard() {
               className={cn(
                 "p-2.5 bg-white dark:bg-slate-800 rounded-full shadow-sm border border-slate-100 dark:border-slate-700 transition-colors select-none",
                 isRefreshing && "animate-spin"
-              )}
-            >
+              )}>
+
               <RefreshCw className="w-5 h-5 text-slate-600 dark:text-slate-300" />
             </button>
-            <Link 
+            <Link
               to={createPageUrl("Alerts")}
-              className="relative p-2.5 bg-white dark:bg-slate-800 rounded-full shadow-sm border border-slate-100 dark:border-slate-700"
-            >
+              className="relative p-2.5 bg-white dark:bg-slate-800 rounded-full shadow-sm border border-slate-100 dark:border-slate-700">
+
               <Bell className="w-5 h-5 text-slate-600 dark:text-slate-300" />
-              {alerts.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+              {alerts.length > 0 &&
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
                   {alerts.length}
                 </span>
-              )}
+              }
             </Link>
           </div>
         </div>
@@ -184,13 +184,13 @@ export default function Dashboard() {
                   {profile?.trust_score || 0}
                 </p>
                 <p className="text-slate-400 text-sm mt-1">
-                  {profile?.trust_score ? (profile.trust_score >= 80 ? "Highly Trusted" : "Building Trust") : "New User"}
+                  {profile?.trust_score ? profile.trust_score >= 80 ? "Highly Trusted" : "Building Trust" : "New User"}
                 </p>
               </div>
-              <Link 
+              <Link
                 to={createPageUrl("TrustProfile")}
-                className="flex items-center gap-1 text-violet-400 text-sm font-medium hover:text-violet-300 transition-colors"
-              >
+                className="flex items-center gap-1 text-violet-400 text-sm font-medium hover:text-violet-300 transition-colors">
+
                 View Profile
                 <ChevronRight className="w-4 h-4" />
               </Link>
@@ -203,13 +203,13 @@ export default function Dashboard() {
           <StatCard
             title="Total Earnings"
             value={`$${totalEarnings.toLocaleString()}`}
-            icon={TrendingUp}
-          />
+            icon={TrendingUp} />
+
           <StatCard
             title="Active Contracts"
-            value={contracts.filter(c => c.status === "signed").length}
-            icon={FileText}
-          />
+            value={contracts.filter((c) => c.status === "signed").length}
+            icon={FileText} />
+
         </div>
 
         {/* Quick Actions */}
@@ -221,10 +221,10 @@ export default function Dashboard() {
         </div>
 
         {/* AI Advisor Promo */}
-        <Link 
+        <Link
           to={createPageUrl("AIAdvisor")}
-          className="block bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl p-5 mb-6 relative overflow-hidden group"
-        >
+          className="block bg-gradient-to-r from-violet-500 to-purple-600 rounded-2xl p-5 mb-6 relative overflow-hidden group">
+
           <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="relative flex items-center gap-4">
             <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
@@ -244,23 +244,23 @@ export default function Dashboard() {
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-slate-900 dark:text-white">Alerts</h2>
-            <Link 
+            <Link
               to={createPageUrl("Alerts")}
-              className="text-sm text-violet-600 dark:text-violet-400 font-medium hover:underline"
-            >
+              className="text-sm text-violet-600 dark:text-violet-400 font-medium hover:underline">
+
               View all
             </Link>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4">
-            {alertsLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} className="h-16 rounded-xl" />
-                ))}
-              </div>
-            ) : (
-              <RecentAlerts alerts={alerts} />
-            )}
+            {alertsLoading ?
+            <div className="space-y-3">
+                {[1, 2, 3].map((i) =>
+              <Skeleton key={i} className="h-16 rounded-xl" />
+              )}
+              </div> :
+
+            <RecentAlerts alerts={alerts} />
+            }
           </div>
         </div>
 
@@ -268,26 +268,26 @@ export default function Dashboard() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-slate-900 dark:text-white">Recent Contracts</h2>
-            <Link 
+            <Link
               to={createPageUrl("ContractAnalyzer")}
-              className="text-sm text-violet-600 dark:text-violet-400 font-medium hover:underline"
-            >
+              className="text-sm text-violet-600 dark:text-violet-400 font-medium hover:underline">
+
               View all
             </Link>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4">
-            {contractsLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} className="h-16 rounded-xl" />
-                ))}
-              </div>
-            ) : (
-              <RecentContracts contracts={contracts} />
-            )}
+            {contractsLoading ?
+            <div className="space-y-3">
+                {[1, 2, 3].map((i) =>
+              <Skeleton key={i} className="h-16 rounded-xl" />
+              )}
+              </div> :
+
+            <RecentContracts contracts={contracts} />
+            }
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
