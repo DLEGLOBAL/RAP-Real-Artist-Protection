@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { 
-  ArrowLeft, User, Shield, Bell, CreditCard,
+  ArrowLeft, User, Shield, CreditCard,
   HelpCircle, LogOut, ChevronRight, Lock,
-  Smartphone, Mail, FileText, Trash2
+  Smartphone, FileText, Trash2
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
