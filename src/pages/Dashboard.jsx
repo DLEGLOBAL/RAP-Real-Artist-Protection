@@ -8,7 +8,6 @@ import {
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import StatCard from "../components/ui/StatCard";
-import TrustScoreBadge from "../components/ui/TrustScoreBadge";
 import QuickActions from "../components/dashboard/QuickActions";
 import RecentAlerts from "../components/dashboard/RecentAlerts";
 import RecentContracts from "../components/dashboard/RecentContracts";
